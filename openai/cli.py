@@ -9,6 +9,7 @@ from typing import Optional
 import requests
 
 import openai
+import openai.wandb_logger
 from openai.upload_progress import BufferReader
 from openai.validators import (
     apply_necessary_remediation,
@@ -19,7 +20,6 @@ from openai.validators import (
     write_out_file,
     write_out_search_file,
 )
-import openai.wandb_logger
 
 
 class bcolors:
@@ -320,7 +320,7 @@ class FineTune:
                 sys.stdout.write(
                     "Found potentially duplicated files with name '{name}', purpose 'fine-tune' and size {size} bytes\n".format(
                         name=os.path.basename(matching_files[0]["filename"]),
-                        size=matching_files[0]["bytes"] if "bytes" in matching_files[0] else matching_files[0]["size"],
+                        size=matching_files[0]["bytes"],
                     )
                 )
                 sys.stdout.write("\n".join(file_ids))
